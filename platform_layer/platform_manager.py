@@ -29,7 +29,7 @@ class PlatformManager:
             return initialize_binance(api_key=login, secret=password)
         else:
             #raise ValueError(f"Unsupported platform: {platform_name}")
-            print(f"Platform {platform} not supported")
+            print(f"Platform {platform_name} not supported")
             return False
 
     def close_platform(self):

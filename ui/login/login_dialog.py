@@ -2,7 +2,8 @@ import sys
 import json
 import os
 from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton, QComboBox, QFormLayout, QCheckBox)
-from platform.platform_manager import initialize_platform  # Ensure platform_manager is imported
+from platform_layer.platform_manager import initialize_platform  # Ensure platform_manager is imported
+from ui.dashboard.main_dashboard import MainDashboard  # Import the dashboard
 
 class LoginDialog(QDialog):
     def __init__(self):
@@ -65,6 +66,7 @@ class LoginDialog(QDialog):
             if self.remember_me_checkbox.isChecked():
                 self.save_user_credentials(login, password, server)
             self.accept()  # Proceed to the main application
+            self.show_main_dashboard()  # Show the main dashboard
         else:
             print("Error initializing platform.")
             self.reject()
@@ -91,3 +93,9 @@ class LoginDialog(QDialog):
                 self.password_input.setText(settings["password"])
                 self.server_input.setText(settings["server"])
                 self.remember_me_checkbox.setChecked(True)  # Set the checkbox if credentials exist
+
+    def show_main_dashboard(self):
+        # Create and show the main dashboard after successful login
+        self.main_dashboard = MainDashboard()
+        self.main_dashboard.show()
+        self.close()  # Close the login dialog
